@@ -24,7 +24,7 @@
       </div>
       <li class="nav-item">
         <a class="nav-link" data-widget="control-sidebar" data-controlsidebar-slide="true" href="#" role="button">
-        <i class='fas fa-power-off' style='font-size:48px;color:red'></i>
+        <i class='fas fa-power-off' style='font-size:30px;color:red;margin-top:10px;';></i>
         </a>
       </li>
     </ul>

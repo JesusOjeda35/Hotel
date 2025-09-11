@@ -35,10 +35,10 @@
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
-        @include('layouts.partial.topbar')
-        @include('layouts.partial.sidebar')
+        @include('layouts.partials.topbar')
+        @include('layouts.partials.sidebar')
             @yield('content')
-        @include('layouts.partial.footer')
+        @include('layouts.partials.footer')
     </div>
 </body>
     <!-- jQuery -->
