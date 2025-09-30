@@ -11,7 +11,7 @@ class CreateRoomsTable extends Migration
     {
         Schema::create('rooms', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('rooms_id')->constrained();
+            $table->foreignId('room_type_id')->constrained();
             $table->string('number');
             $table->integer('floor');
             $table->decimal('value', 10, 2);
