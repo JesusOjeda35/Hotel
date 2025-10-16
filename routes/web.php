@@ -17,3 +17,35 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::resource('clients', ClientController::class);
+Route::resource('employees', EmployeeController::class);
+Route::resource('rooms', RoomController::class);
+Route::resource('registrations', RegistrationController::class);
+
+
+// Route::get('/about', function () {
+// return 'Acerca de nosotros';
+// });
+
+// Route::get('/user/{id}', function ($id) {
+//     return 'ID de usuario: ' . $id;
+// });
+
+// Route::get('/contacto', function () {
+// return 'Página de contacto';
+// })->name('contacto');
+
+// Route::get('/user/{id}', function ($id) {
+//     return 'ID de usuario: ' . $id;
+// })->where('id', '[0-9]{3}');
+
+// Route::prefix('admin')->group(function () {
+//     Route::post('/', function () {
+//     return 'Panel de administración';
+// });
+// Route::post('/users', function () {
+//     return 'Lista de usuarios';
+// });
+// });
+
