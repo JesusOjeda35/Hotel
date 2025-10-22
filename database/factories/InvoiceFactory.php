@@ -16,7 +16,7 @@ class InvoiceFactory extends Factory
             'payment_method_id' => PaymentMethod::inRandomOrder()->first()->id,// Relación
             'date' => $this->faker->date(),
             'total' => $this->faker->randomFloat(),
-            'estado' => '1'
+            'estado' => $this->faker->boolean()
         ];
     }
 }

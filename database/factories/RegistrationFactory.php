@@ -19,10 +19,10 @@ class RegistrationFactory extends Factory
             'employee_id' => Room::inRandomOrder()->first()->id,
             'room_id' => Room::inRandomOrder()->first()->id,
             'client_id' => Room::inRandomOrder()->first()->id,
-            'checkindate' => $this->faker->checkindate(),
-            'checkoutdate' => $this->faker->checkoutdate(),
-            'checkintime' => $this->faker->checkintime(),
-            'checkouttime' => $this->faker->checkouttime()
+            'checkindate' => $this->faker->format('Y-m-d'),
+            'checkoutdate' => $this->faker->format('Y-m-d'),
+            'checkintime' =>  $this->faker->time('H:i:s'),
+            'checkouttime' =>  $this->faker->time('H:i:s')
         ];
     }
 }
