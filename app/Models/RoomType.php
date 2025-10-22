@@ -9,7 +9,7 @@ class RoomType extends Model
 {
     use HasFactory;
 
-    // coincide con la migration: room_types
+
     protected $table = 'room_types';
     protected $primaryKey = 'id';
 
@@ -18,7 +18,7 @@ class RoomType extends Model
         'description',
     ];
 
-    // relación con rooms — dejo la FK por defecto (room_type_id)
+
     public function rooms()
     {
         return $this->hasMany(Room::class);

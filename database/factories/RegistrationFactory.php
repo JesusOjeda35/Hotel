@@ -14,7 +14,6 @@ class RegistrationFactory extends Factory
 
     public function definition(): array
     {
-        // Asegurar que existen registros relacionados; si no, crear uno
         $employeeId = Employee::count()
             ? Employee::inRandomOrder()->first()->id
             : Employee::factory()->create()->id;
@@ -27,16 +26,13 @@ class RegistrationFactory extends Factory
             ? Client::inRandomOrder()->first()->id
             : Client::factory()->create()->id;
 
-        // Generar fecha de checkin y checkout coherentes
         $checkinDt = $this->faker->dateTimeBetween('-1 month', 'now');
         $checkoutDt = (clone $checkinDt);
         $checkoutDt->modify('+'.rand(1,7).' days');
 
-        // Horas/fechas en los formatos que espera la DB
         $checkinDate = $checkinDt->format('Y-m-d');
         $checkoutDate = $checkoutDt->format('Y-m-d');
 
-        // Tiempos completos datetime (checkin/checkout)
         $checkinTime = $this->faker->dateTimeBetween($checkinDt, $checkoutDt)->format('Y-m-d H:i:s');
         $checkoutTime = $this->faker->dateTimeBetween($checkinDt, $checkoutDt)->format('Y-m-d H:i:s');
 

@@ -13,7 +13,6 @@ class InvoiceFactory extends Factory
 
     public function definition(): array
     {
-        // Asegurar que existan registros relacionados; si no, crear alguno
         $registrationId = Registration::count()
             ? Registration::inRandomOrder()->first()->id
             : Registration::factory()->create()->id;

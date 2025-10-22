@@ -10,7 +10,6 @@ class CreateRoomsTable extends Migration
     {
         Schema::create('rooms', function (Blueprint $table) {
             $table->id();
-            // Asegúrate de que la tabla room_types exista antes de correr esta migración
             $table->foreignId('room_type_id')->constrained('room_types');
             $table->string('number');
             $table->integer('floor');

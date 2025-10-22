@@ -22,7 +22,7 @@ class Employee extends Model
 
     public function registrations()
     {
-        // Asumo que la FK en la tabla registrations es employee_id
+        
         return $this->hasMany(Registration::class, 'employee_id');
     }
 }

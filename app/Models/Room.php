@@ -20,13 +20,13 @@ class Room extends Model
         'numpeople',
     ];
 
-    // relación al tipo de habitación (usa la FK room_type_id)
+
     public function roomtype()
     {
         return $this->belongsTo(RoomType::class, 'room_type_id');
     }
 
-    // relación con registros/reservas
+
     public function registrations()
     {
         return $this->hasMany(Registration::class, 'room_id');
