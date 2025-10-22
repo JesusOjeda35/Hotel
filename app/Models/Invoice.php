@@ -2,29 +2,33 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Invoice extends Model
 {
     use HasFactory;
+
     protected $table = 'invoices';
     protected $primaryKey = 'id';
+
     protected $fillable = [
-    'registration_id',
-    'payment_method_id',
-    'date',
-    'total',
-    'state'
+        'registration_id',
+        'payment_method_id',
+        'date',
+        'total',
+        'state',
     ];
-    // Relación con registration (uno a uno)
+
+    // Una factura pertenece a una reserva/registro (registration)
     public function registration()
     {
-    return $this->hasOne(Registration::class);
-    }
-    // Relación con DetalleFactura (uno a muchos)
-    public function paymentmethod()
-    {
-    return $this->belongsTo(PaymentMethod::class);
+        return $this->belongsTo(Registration::class, 'registration_id');
     }
 
+    // Una factura pertenece a un método de pago
+    public function paymentMethod()
+    {
+        return $this->belongsTo(PaymentMethod::class, 'payment_method_id');
+    }
 }

@@ -2,22 +2,28 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\RoomType;
 use App\Models\Room;
+use App\Models\RoomType;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class RoomFactory extends Factory
 {
+    protected $model = Room::class;
 
     public function definition(): array
     {
-        $value = $this->faker->randomFloat(5, 50000, 100000, 250000, 500000, 1000000);
+        // Asegurar que haya al menos un RoomType; si no, crear uno
+        $roomTypeId = RoomType::count()
+            ? RoomType::inRandomOrder()->first()->id
+            : RoomType::factory()->create()->id;
+
         return [
-            'room_type_id' => RoomType::inRandomOrder()->first()->id,// Relación
-            'number' => $this->faker->number(),
-            'floor' => $this->faker->floor(),
-            'value' => $value,
-            'numpeople' => $this->faker->numberBetween(1,6)
+            'room_type_id' => $roomTypeId, // relación
+            'number' => $this->faker->unique()->numerify('###'), // número de habitación
+            'floor' => $this->faker->numberBetween(1, 10),
+            // valor como decimal con 2 decimales; rango realista
+            'value' => $this->faker->randomFloat(2, 50000, 1000000),
+            'numpeople' => $this->faker->numberBetween(1, 6),
         ];
     }
 }

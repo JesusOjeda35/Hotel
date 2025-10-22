@@ -2,27 +2,52 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Registration;
 use App\Models\Employee;
 use App\Models\Room;
 use App\Models\Client;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class RegistrationFactory extends Factory
 {
+    protected $model = Registration::class;
 
     public function definition(): array
     {
+        // Asegurar que existen registros relacionados; si no, crear uno
+        $employeeId = Employee::count()
+            ? Employee::inRandomOrder()->first()->id
+            : Employee::factory()->create()->id;
+
+        $roomId = Room::count()
+            ? Room::inRandomOrder()->first()->id
+            : Room::factory()->create()->id;
+
+        $clientId = Client::count()
+            ? Client::inRandomOrder()->first()->id
+            : Client::factory()->create()->id;
+
+        // Generar fecha de checkin y checkout coherentes
+        $checkinDt = $this->faker->dateTimeBetween('-1 month', 'now');
+        $checkoutDt = (clone $checkinDt);
+        $checkoutDt->modify('+'.rand(1,7).' days');
+
+        // Horas/fechas en los formatos que espera la DB
+        $checkinDate = $checkinDt->format('Y-m-d');
+        $checkoutDate = $checkoutDt->format('Y-m-d');
+
+        // Tiempos completos datetime (checkin/checkout)
+        $checkinTime = $this->faker->dateTimeBetween($checkinDt, $checkoutDt)->format('Y-m-d H:i:s');
+        $checkoutTime = $this->faker->dateTimeBetween($checkinDt, $checkoutDt)->format('Y-m-d H:i:s');
+
         return [
-            //'employee_id' => Employee::factory(),// Relación
-            //'room_id' => Room::factory(),// Relación
-            //'client_id' => Client::factory(),// Relación
-            'employee_id' => Room::inRandomOrder()->first()->id,
-            'room_id' => Room::inRandomOrder()->first()->id,
-            'client_id' => Room::inRandomOrder()->first()->id,
-            'checkindate' => $this->faker->format('Y-m-d'),
-            'checkoutdate' => $this->faker->format('Y-m-d'),
-            'checkintime' =>  $this->faker->time('H:i:s'),
-            'checkouttime' =>  $this->faker->time('H:i:s')
+            'employee_id'   => $employeeId,
+            'room_id'       => $roomId,
+            'client_id'     => $clientId,
+            'checkindate'   => $checkinDate,
+            'checkoutdate'  => $checkoutDate,
+            'checkintime'   => $checkinTime,
+            'checkouttime'  => $checkoutTime,
         ];
     }
 }

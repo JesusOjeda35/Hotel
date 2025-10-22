@@ -6,12 +6,12 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateRoomsTable extends Migration
 {
-
     public function up(): void
     {
         Schema::create('rooms', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('room_type_id')->constrained();
+            // Asegúrate de que la tabla room_types exista antes de correr esta migración
+            $table->foreignId('room_type_id')->constrained('room_types');
             $table->string('number');
             $table->integer('floor');
             $table->decimal('value', 10, 2);
@@ -24,4 +24,4 @@ class CreateRoomsTable extends Migration
     {
         Schema::dropIfExists('rooms');
     }
-};
+}

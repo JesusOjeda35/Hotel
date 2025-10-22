@@ -2,21 +2,32 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\PaymentMethod;
+use App\Models\Invoice;
 use App\Models\Registration;
+use App\Models\PaymentMethod;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class InvoiceFactory extends Factory
 {
+    protected $model = Invoice::class;
 
     public function definition(): array
     {
+        // Asegurar que existan registros relacionados; si no, crear alguno
+        $registrationId = Registration::count()
+            ? Registration::inRandomOrder()->first()->id
+            : Registration::factory()->create()->id;
+
+        $paymentMethodId = PaymentMethod::count()
+            ? PaymentMethod::inRandomOrder()->first()->id
+            : PaymentMethod::factory()->create()->id;
+
         return [
-            'registration_id' => Registration::inRandomOrder()->first()->id,// Relación
-            'payment_method_id' => PaymentMethod::inRandomOrder()->first()->id,// Relación
-            'date' => $this->faker->date(),
-            'total' => $this->faker->randomFloat(),
-            'estado' => $this->faker->boolean()
+            'registration_id'    => $registrationId,
+            'payment_method_id'  => $paymentMethodId,
+            'date'               => $this->faker->date('Y-m-d'),
+            'total'              => $this->faker->randomFloat(2, 100, 10000), // 2 decimales, rango 100-10.000
+            'state'              => $this->faker->boolean(),
         ];
     }
 }

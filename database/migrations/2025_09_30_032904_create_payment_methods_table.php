@@ -6,13 +6,12 @@ use Illuminate\Support\Facades\Schema;
 
 class CreatePaymentMethodsTable extends Migration
 {
-
     public function up(): void
     {
         Schema::create('payment_methods', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
@@ -21,4 +20,4 @@ class CreatePaymentMethodsTable extends Migration
     {
         Schema::dropIfExists('payment_methods');
     }
-};
+}
