@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\PaisController;
 Route::get('/', function () {
     return view('welcome');
 });
@@ -22,6 +23,7 @@ Route::resource('clients', ClientController::class);
 Route::resource('employees', EmployeeController::class);
 Route::resource('rooms', RoomController::class);
 Route::resource('registrations', RegistrationController::class);
+Route::get('cambioestadoemployee', [EmployeeController::class, 'cambioestadoemployee'])->name('cambioestadoemployee');
 
 
 // Route::get('/about', function () {
