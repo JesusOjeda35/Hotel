@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         // // Más empleados
-        // Employee::factory(5)->create();
+        Employee::factory(5)->create();
 
         // // Métodos de pago
         // PaymentMethod::factory(3)->create();
